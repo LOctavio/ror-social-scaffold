@@ -5,8 +5,11 @@
         Name: <%= user.name %>
         <span class="profile-link">
           <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
-          <span> | </span>
-          <%= link_to  "Add friend", friendships_path(friend_id: @user, user_id: current_user), method: 'post', class: 'profile-link' %>
+          
+          <% if user.id != current_user.id %>
+            <span> | </span>
+            <%= link_to  "Add friend", friendships_path(friend_id: @user, user_id: current_user), method: 'post', class: 'profile-link' %>
+          <% end %>
         </span>
       </li>
     <% end %>
