@@ -11,6 +11,16 @@ class FriendshipsController < ApplicationController
         redirect_to root_path
     end
 
+    def update
+        @friend = Friendship.find_by(params[:friend_id])
+
+        
+    end
+
+    def destroy
+
+    end
+
     private
 
     def friendship_params
