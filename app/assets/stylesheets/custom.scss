@@ -283,6 +283,9 @@ form {
     margin-bottom: 16px;
     text-transform: capitalize;
     font-size: 1.2em;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
   }
 
   .profile-link {
