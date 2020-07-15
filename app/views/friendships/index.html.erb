@@ -1,7 +1,7 @@
 <h2>List of friends</h2>
-
+<%= link_to  "Friend requests", requests_path %>
 <% @friend_list.each do |friend| %>
     <div>
-        <%= friend.friend_id %>
+        <%= friend.name %>
     </div>
 <% end %>
