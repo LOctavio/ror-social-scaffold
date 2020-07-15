@@ -20,7 +20,7 @@ class User < ApplicationRecord
   end
 
   def pending_friends
-    friendships.map{|friendship| friendship.friend if !friendship.confirmed}.compact
+    friendships.map{|friendship| friendship.friend if !friendship.status}.compact
   end
 
   def friend?(user)
