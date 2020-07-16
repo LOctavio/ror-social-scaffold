@@ -1,0 +1,5 @@
+<% @friend_requests.each do |user| %>
+    <%= link_to  user.name, user_path(user) %>
+    <%= button_to  "Confirm", update_friendship_path({friendship: user, status: true}), method: 'patch' %>
+    <%= button_to  'Delete request', delete_request_path(friendship: user), method: 'delete'  %>
+<% end %>
