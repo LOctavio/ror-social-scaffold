@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @invites = Friendship.friend_requests_received(current_user.id)
   end
 
   def show
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
     @posts = @user.posts.ordered_by_most_recent
   end
 
-  def friend_requests_received
-    @friend_requests_received = current_user.friend_requests
+  def friend_requests
+    @friend_requests = Friendship.friend_requests_received(current_user.id)
   end
 end
