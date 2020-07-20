@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @invites = Friendship.friend_requests_received(current_user.id)
+    @friend_requests = Friendship.friend_requests_received(current_user.id)
   end
 
   def show
