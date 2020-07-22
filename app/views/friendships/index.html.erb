@@ -2,6 +2,6 @@
 <%= link_to  "Friend requests", requests_path, class: 'profile-link'  %>
 <% @friend_list.each do |friend| %>
     <div>
-        <%= friend.name %>
+        <%= link_to friend.name, user_path(friend) %>
     </div>
 <% end %>
