@@ -34,7 +34,7 @@ module UsersHelper
         @friend_requests.each do |fr|
             friendship_html += <<-HTML
             #{ button_to "Confirm", update_friendship_path({friendship: fr, status: true}), method: 'patch'}
-            #{ button_to "Delete request"}
+            #{ button_to "Delete request", delete_request_path(friendship: fr), method: 'delete'}
             HTML
         end
 
