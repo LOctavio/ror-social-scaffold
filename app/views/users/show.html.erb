@@ -1,7 +1,9 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
 
-  <%= link_to  "Add friend", friendships_path(user_id: @user), method: 'post' %>
+  <%#= link_to  "Add friend", friendships_path(user_id: @user), method: 'post' %>
+  <%= friend_request_button_handler(@user) %>
+  
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">
