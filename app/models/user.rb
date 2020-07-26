@@ -12,7 +12,9 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :friends, through: :friendships #class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  
+
+  has_one_attached :profile_image
+  has_one_attached :cover_image
 
   def friends
     friends_array = friendships.map{|friendship| friendship.friend if friendship.status}
@@ -42,5 +44,13 @@ class User < ApplicationRecord
     friendship = inverse_friendships.find{ |f| f.user == user }
     friendship.status = false
     friendship.destroy
+  end
+
+  def profile_image_path
+    profile_image.attached? ? profile_image : 'default-user.jpg'
+  end
+
+  def cover_image_path
+    cover_image.attached? ? cover_image : nil
   end
 end
