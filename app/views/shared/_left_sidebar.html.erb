@@ -1,0 +1,21 @@
+<% if current_user %>
+    <aside class="aside aside-1">
+        <nav class="aside-nav" >
+            <h3>MENU</h3>
+            <ul>
+                <li>
+                    <%= menu_link_to 'Home', posts_path %>
+                </li>
+                <li>
+                    <%= menu_link_to 'Friends', friendships_path %>
+                </li>
+                <li>
+                    <%= menu_link_to 'Friend requests', requests_path %>
+                </li>
+                <li>
+                    <%= menu_link_to 'All users', users_path %>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+<% end %>

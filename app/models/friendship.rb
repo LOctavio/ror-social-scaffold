@@ -8,8 +8,4 @@ class Friendship < ApplicationRecord
         find_by_sql(["SELECT * FROM users u JOIN friendships f ON u.id = f.user_id
             WHERE f.status = false AND f.friend_id = ?", current_user])
     end
-
-    # def self.friends_list
-    #     find_by_sql(["SELECT * FROM users u JOIN friendships f ON u.id = f.user_id WHERE f.status = true AND f.friend_id = ?", :user])
-    # end
 end

@@ -1,0 +1,18 @@
+<nav class="nav header" >
+    <%= link_to image_tag("stay_4.png", alt: "Rails", class: 'logo'), root_path %>
+    <div class="menu">
+        <% if current_user %>
+            <span class="avatar">
+                <span class="avatar-image-wrapper">
+                    <%= image_tag(current_user.profile_image_path, class: "avatar-image") %>
+                </span>
+            </span>
+            
+            <%= link_to current_user.name, current_user, class: "profile-link" %>
+            <%= link_to "Edit Profile", edit_user_registration_path, class: "profile-link" %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "profile-link" %>
+        <% else %>
+            <%= link_to 'Sign in', user_session_path %>
+        <% end %>
+    </div>
+</nav>
