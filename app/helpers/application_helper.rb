@@ -10,9 +10,9 @@ module ApplicationHelper
   def like_or_dislike_btn(post)
     like = Like.find_by(post: post, user: current_user)
     if like
-      link_to('Dislike!', post_like_path(id: like.id, post_id: post.id), method: :delete)
+      link_to('Dislike', post_like_path(id: like.id, post_id: post.id), method: :delete, class: "fa fa-heart", alt: 'Dislike', title: 'Dislike')
     else
-      link_to('Like!', post_likes_path(post_id: post.id), method: :post)
+      link_to('Like', post_likes_path(post_id: post.id), method: :post, class: "fa fa-heart-o", alt: 'Like', title: 'Like')
     end
   end
 end
