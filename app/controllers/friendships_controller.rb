@@ -3,7 +3,7 @@ class FriendshipsController < ApplicationController
     def index
       @friend_list = current_user.friends
     end
-    
+
     def create
       @friend = current_user.friendships.build(friend_id: params[:user_id])
       
