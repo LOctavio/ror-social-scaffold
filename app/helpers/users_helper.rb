@@ -50,12 +50,12 @@ module UsersHelper
             <div class="user-preview-card">
                 <div class="avatar avatar-lg">
                     <div class="avatar-image-wrapper">
-                        #{image_tag(fr.user.profile_image_path, class: "avatar-image", alt: fr.name)}
+                        #{image_tag(fr.user.profile_image_path, class: "avatar-image", alt: fr.user.name)}
                     </div>
 
                     <div class="avatar-content">
                         <div class="avatar-name">
-                            #{link_to(fr.name, fr.user)}
+                            #{link_to(fr.user.name, user_path(fr.user))}
                         </div>
                         <div class="avatar-friend-count">
                             #{pluralize(fr.user.friends.count, 'friend')}
@@ -71,5 +71,35 @@ module UsersHelper
         end
 
         friendship_html.html_safe
+    end
+
+    def sent_requests
+        request_html = ''
+
+        @pending_friends.each do |fr|
+            request_html += <<-HTML
+            <div class="user-preview-card">
+                <div class="avatar avatar-lg">
+                    <div class="avatar-image-wrapper">
+                        #{image_tag(fr.profile_image_path, class: "avatar-image", alt: fr.name)}
+                    </div>
+
+                    <div class="avatar-content">
+                        <div class="avatar-name">
+                            #{link_to(fr.name, user_path(fr))}
+                        </div>
+                        <div class="avatar-friend-count">
+                            #{pluralize(fr.friends.count, 'friend')}
+                        </div>
+                    </div>
+                </div>
+                <div class="friendship-buttons">
+                    #{ button_to 'Pending', user_path(fr), disabled: true }
+                </div>
+            </div>            
+            HTML
+        end
+
+        request_html.html_safe
     end
 end

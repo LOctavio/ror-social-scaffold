@@ -1,31 +1,31 @@
 <section class="user-section">
-  <%= render "shared/cover_header"%>
-  <%= friend_request_button_handler(@user) %>
+    <%= render "shared/cover_header"%>
+    <%= friend_request_button_handler(@user) %>
 
-  <div class="users-list" id="friends">
-    <h3>Friends</h3>
+    <div class="users-list" id="friends">
+        <h3>Friends</h3>
 
-    <div class="users-list-cards">
-        <% @friends.each do |friend| %>
-            <div class="user-preview-card">
-                <div class="avatar avatar-lg">
-                    <div class="avatar-image-wrapper">
-                        <%= image_tag(friend.profile_image_path, class: "avatar-image", alt: friend.name) %>
-                    </div>
-
-                    <div class="avatar-content">
-                        <div class="avatar-name">
-                            <strong><%= link_to friend.name, user_path(friend.id) %></strong>
+        <div class="users-list-cards">
+            <% @friends.each do |friend| %>
+                <div class="user-preview-card">
+                    <div class="avatar avatar-lg">
+                        <div class="avatar-image-wrapper">
+                            <%= image_tag(friend.profile_image_path, class: "avatar-image", alt: friend.name) %>
                         </div>
-                        <div class="avatar-friend-count">
-                            <%= pluralize(friend.friends.count, 'friend') %>
+
+                        <div class="avatar-content">
+                            <div class="avatar-name">
+                                <strong><%= link_to friend.name, user_path(friend.id) %></strong>
+                            </div>
+                            <div class="avatar-friend-count">
+                                <%= pluralize(friend.friends.count, 'friend') %>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <% end %>
+            <% end %>
+        </div>
     </div>
-</div>
 
   <article class="timeline" id = "posts">
     <h3>Posts</h3>
