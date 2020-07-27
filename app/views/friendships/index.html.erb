@@ -1,7 +1,7 @@
-<h2>List of friends</h2>
-
+<h2>Friends</h2>
+<%= link_to  "Friend requests", requests_path, class: 'profile-link'  %>
 <% @friend_list.each do |friend| %>
     <div>
-        <%= friend.friend_id %>
+        <%= link_to friend.name, user_path(friend) %>
     </div>
 <% end %>

@@ -11,6 +11,10 @@
   <p class="post-content">
     <%= post.content %>
   </p>
+  <div>
+    <div><%= pluralize(post.comments.count, 'comment') %></div>
+    <div><%= pluralize(post.likes.count, 'like') %></div>
+  </div>
 
   <div class='post-comments-section'>
     <% post.comments.each do |comment| %>
