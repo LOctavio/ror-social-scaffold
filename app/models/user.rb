@@ -53,4 +53,9 @@ class User < ApplicationRecord
   def cover_image_path
     cover_image.attached? ? cover_image : nil
   end
+
+  
+  def friends_and_own_posts
+    posts = Post.where("user_id IN (?) OR user_id = ? ", self.friends, self).order('created_at DESC')
+  end
 end
