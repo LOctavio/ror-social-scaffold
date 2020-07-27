@@ -8,4 +8,9 @@ class Friendship < ApplicationRecord
         find_by_sql(["SELECT * FROM users u JOIN friendships f ON u.id = f.user_id
             WHERE f.status = false AND f.friend_id = ?", current_user])
     end
+
+    def confirm_friend
+        self.update_attributes(status: true)
+        Friendship.create!(friend_id: self.user_id , user_id: self.friend_id, status: true)
+    end                  
 end
