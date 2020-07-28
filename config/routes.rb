@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   end
 
   get 'requests', to: 'users#friend_requests', as: :requests
+  get 'sent', to: 'users#pending_friends', as: :sent
+  get 'friends', to: 'users#friends', as: :friends
   patch 'update_friendship', to: 'friendships#update'
   post 'send_friendship_request', to: 'friendships#create'
   delete 'delete_request', to: 'friendships#destroy'
+
 end

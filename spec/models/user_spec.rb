@@ -13,4 +13,11 @@ RSpec.describe User, type: :model do
     expect(User.reflect_on_association(:likes).macro).to eq(:has_many)
   end
 
+  it "A user has many pending friends" do
+    expect(User.reflect_on_association(:pending_friends).macro).to eq(:has_many)
+  end
+
+  it "A user has many friend requests" do
+    expect(User.reflect_on_association(:friend_requests).macro).to eq(:has_many)
+  end
 end

@@ -13,6 +13,6 @@ RSpec.describe "sign in", type: :feature do
     end
     click_button 'commit'
     visit users_path
-    expect(page).to have_content 'Sign out'
+    expect(page).to have_content 'Sign Out'
   end
 end

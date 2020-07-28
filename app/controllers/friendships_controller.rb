@@ -3,9 +3,9 @@ class FriendshipsController < ApplicationController
     def index
       @friend_list = current_user.friends
     end
-    
+
     def create
-      @friend = current_user.friendships.build(friend_id: params[:user_id])
+      @friend = current_user.pending_friendships.build(friend_id: params[:user_id])
       
       if @friend.save
         redirect_back(fallback_location: root_path, notice: 'Friendship request was sent.')
@@ -16,11 +16,12 @@ class FriendshipsController < ApplicationController
 
     def update
       @friendship = Friendship.find(params[:friendship])
+      @friendship.confirm_friend
 
-        return unless @friendship.update(friendship_params)
+      return unless @friendship.update(friendship_params)
 
-        flash[:notice] = 'Friend request accepted.'
-        redirect_to requests_path
+      flash[:notice] = 'Friend request accepted.'
+      redirect_to requests_path
     end
 
     def destroy

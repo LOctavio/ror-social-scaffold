@@ -9,20 +9,22 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :friendships
-  has_many :friends, through: :friendships #class_name: 'Friendship', foreign_key: 'friend_id'
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  
+
+  has_one_attached :profile_image
+  has_one_attached :cover_image
+
+  has_many :confirmed_friendships, -> { where status: true }, class_name: 'Friendship'
+  has_many :friends, through: :confirmed_friendships
+
+  has_many :pending_friendships, -> { where status: false }, class_name: 'Friendship', foreign_key: 'user_id'
+  has_many :pending_friends, through: :pending_friendships, source: :friend
+
+  has_many :inverted_friendships, -> { where status: false }, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :friend_requests, through: :inverted_friendships
 
   def friends
-    friends_array = friendships.map{|friendship| friendship.friend if friendship.status}
-    # friends_array + inverse_friendships.map{|friendship| friendship.user if friendship.status}
+    friends_array = confirmed_friendships.map{|friendship| friendship.friend if friendship.status}
     friends_array.compact
-  end
-
-  def confirm_friend(user_id)
-    friendship = inverse_friendships.find{|friendship| friendship.user_id == user_id && friendship.status = false}
-    friendship.update_attribute(:status, true)
   end
 
   def friend?(user)
@@ -30,17 +32,30 @@ class User < ApplicationRecord
   end
 
   def pending_friends
-    friendships.map{|friendship| friendship.friend if !friendship.status}.compact
+    pending_friendships.map{|friendship| friendship.friend if !friendship.status}.compact
   end
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map{|friendship| friendship.user if !friendship.status}.compact
+    inverted_friendships.map{|friendship| friendship.user if !friendship.status}.compact
   end
 
   def reject_friend(user)
     friendship = inverse_friendships.find{ |f| f.user == user }
     friendship.status = false
     friendship.destroy
+  end
+
+  def profile_image_path
+    profile_image.attached? ? profile_image : 'default-user.jpg'
+  end
+
+  def cover_image_path
+    cover_image.attached? ? cover_image : nil
+  end
+
+  
+  def friends_and_own_posts
+    posts = Post.where("user_id IN (?) OR user_id = ? ", self.friends, self).order('created_at DESC')
   end
 end
