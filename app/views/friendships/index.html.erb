@@ -1,0 +1,26 @@
+<div class="users-list">
+    <h3>Friends</h3>
+    
+    <%= render "shared/user_tabs"%>
+
+    <div class="users-list-cards">
+        <% @friend_list.each do |friend| %>
+            <div class="user-preview-card">
+                <div class="avatar avatar-lg">
+                    <div class="avatar-image-wrapper">
+                        <%= image_tag(friend.profile_image_path, class: "avatar-image", alt: friend.name) %>
+                    </div>
+
+                    <div class="avatar-content">
+                        <div class="avatar-name">
+                            <strong><%= link_to friend.name, user_path(friend.id) %></strong>
+                        </div>
+                        <div class="avatar-friend-count">
+                            <%= pluralize(friend.friends.count, 'friend') %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

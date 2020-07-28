@@ -1,30 +1,54 @@
 <li class="post">
   <div>
     <div class='post-attribution' >
-      <%= link_to post.user.name, user_path(post.user), class: 'post-author' %>
+      <div class="post-author-info">
+        <%= link_to image_tag(post.user.profile_image_path, class: 'post-user-avatar'), user_path(post.user), class: 'post-avatar' %>
+        <div class="post-author-avatar-content">
+          <%= link_to post.user.name, user_path(post.user), class: 'post-author' %>
+          <span class='post-date'> <%= post.created_at.strftime("%Y/%m/%d") %> </span>
+        </div>
+      </div>
+      <div class="post-menu">
+      </div>
     </div>
-    <div class='post-liking'>
-      <span class='post-date'> <%= post.created_at.strftime("%Y/%m/%d") %> </span>
-      <%= like_or_dislike_btn(post) %>
-    </div>
-  </div>
+
+  
   <p class="post-content">
     <%= post.content %>
   </p>
+  
+  <div class="post-footer">
+    <div class='post-liking footer-item'>
+      <%= like_or_dislike_btn(post) %>
+    </div>
+    <div class="post-comment footer-item">
+      <%= link_to "Comment", root_path, class: 'fa fa-comments-o', alt: 'Comment', title: 'Comment' %>
+    </div>
+    <div class="counter footer-item">
+      <div><%= pluralize(post.comments.count, 'comment') %></div>
+      <div><%= pluralize(post.likes.count, 'like') %></div>
+    </div>
+  </div>
 
   <div class='post-comments-section'>
     <% post.comments.each do |comment| %>
       <div class="post-comments">
+        <%= link_to image_tag(comment.user.profile_image_path, class: 'post-user-avatar'), user_path(comment.user), class: 'post-avatar' %>
         <p>
-          <b><%= comment.user.name %>:</b> <%= comment.content %>
+          <b><%= link_to comment.user.name, user_path(comment.user) %></b> <%= comment.content %>
         </p>
         <span> <%= comment.created_at.strftime("%Y/%m/%d") %> </span>
       </div>
     <% end %>
 
-    <%= form_for(post.comments.new, url: post_comments_path(post)) do |form| %>
-      <%= form.text_field :content, id: :comment_content, class: 'form-control', placeholder: 'Add new Comment' %>
-      <%= form.submit 'Comment', class: 'btn btn-secondary' %>
-    <% end %>
+    <div class="new-comment-post">
+      <%= link_to image_tag(current_user.profile_image_path, class: 'post-user-avatar'), user_path(current_user), class: 'post-avatar' %>
+      <%= form_for(post.comments.new, url: post_comments_path(post)) do |form| %>
+        <%= form.text_area :content, id: :comment_content, placeholder: 'Write a comment...' %>
+        <%= form.submit 'Comment', class: 'btn btn-secondary comment-btn' %>
+      <% end %>
+    </div>
+  </div>
+
   </div>
 </li>
