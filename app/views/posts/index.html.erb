@@ -1,14 +1,12 @@
 <%= form_for(@post) do |form| %>
-  <div class="new-post-content">
-    <%= link_to image_tag(current_user.profile_image_path, class: 'post-user-avatar'), user_path(current_user), class: 'post-avatar' %>
-    <%= form.text_area :content, id: :post_content, class: 'form-control new-post-textarea', placeholder: 'Where you at? What are you doing? What’s your number? Share it!' %>
-    <% if @post.errors.full_messages.any? %>
-      <p class="errors">
-        <%= "Post could not be saved. #{@post.errors.full_messages.join('. ')}" %>
-      </p>
-    <% end %>
-  </div>
-  <%= form.submit 'Post', class: 'btn btn-primary btn-new-post' %>
+  <%= form.label :content %>
+  <%= form.text_field :content, id: :post_content, class: 'form-control', placeholder: 'Add New Post' %>
+  <% if @post.errors.full_messages.any? %>
+    <p class="errors">
+      <%= "Post could not be saved. #{@post.errors.full_messages.join('. ')}" %>
+    </p>
+  <% end %>
+  <%= form.submit 'Save', class: 'btn btn-primary' %>
 <% end %>
 
 <article class="timeline">
